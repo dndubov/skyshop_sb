@@ -1,33 +1,23 @@
 package org.skypro.skyshop.service;
 
-import org.skypro.skyshop.model.search.Searchable;
+import org.skypro.skyshop.model.search.SearchResult;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 public class SearchService {
+    private final StorageService storageService;
 
-    /**
-     * Поиск среди коллекции Searchable по тексту.
-     * Поиск нечувствителен к регистру, ищет подстроку в getSearchableText().
-     *
-     * @param items коллекция объектов, реализующих Searchable
-     * @param text  текст поиска
-     * @return список подходящих объектов
-     */
-    public <T extends Searchable> List<T> search(Collection<T> items, String text) {
-        List<T> results = new ArrayList<>();
-        String lowerText = text.toLowerCase(Locale.ROOT);
+    public SearchService(StorageService storageService) {
+        this.storageService = storageService;
+    }
 
-        for (T item : items) {
-            if (item.getSearchableText().toLowerCase(Locale.ROOT).contains(lowerText)) {
-                results.add(item);
-            }
-        }
-        return results;
+    public Collection<SearchResult> search(String text) {
+        return storageService.getAllSearchables().stream()
+                .filter(item -> item.getSearchableText().toLowerCase().contains(text.toLowerCase()))
+                .map(SearchResult::fromSearchable)
+                .collect(Collectors.toList());
     }
 }
