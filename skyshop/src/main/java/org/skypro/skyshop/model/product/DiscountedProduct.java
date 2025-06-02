@@ -18,4 +18,9 @@ public class DiscountedProduct extends Product {
     public double getDiscountedPrice() {
         return getPrice() * (1 - discount);
     }
+
+    @Override
+    public String getType() {
+        return "product";
+    }
 }
