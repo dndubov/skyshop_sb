@@ -13,4 +13,9 @@ public class FixedPriceProduct extends Product {
     public double getFixedPrice() {
         return fixedPrice;
     }
+
+    @Override
+    public String getType() {
+        return "product";
+    }
 }

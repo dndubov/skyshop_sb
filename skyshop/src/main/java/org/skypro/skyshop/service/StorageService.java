@@ -17,12 +17,26 @@ public class StorageService {
     }
 
     private void initializeTestData() {
-        // Добавление тестовых продуктов
-        products.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(), "Product 1", "Description 1", 100));
-        products.put(UUID.randomUUID(), new DiscountedProduct(UUID.randomUUID(), "Product 2", "Description 2", 200, 0.1));
+        UUID id1 = UUID.randomUUID();
+        products.put(id1, new SimpleProduct(id1, "Product 1", "Description 1", 100));
 
-        // Добавление тестовых статей
-        articles.put(UUID.randomUUID(), new Article(UUID.randomUUID(), "Article 1", "Content 1"));
+        UUID id2 = UUID.randomUUID();
+        products.put(id2, new DiscountedProduct(id2, "Product 2", "Description 2", 200, 0.1));
+
+        UUID articleId = UUID.randomUUID();
+        articles.put(articleId, new Article(articleId, "Article 1", "Content 1"));
+    }
+
+    private void printProductIds() {
+        System.out.println("=== Товары с их ID ===");
+        for (UUID id : products.keySet()) {
+            System.out.println(id);
+        }
+        System.out.println("======================");
+    }
+
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(products.get(id));
     }
 
     public Collection<Product> getProducts() {

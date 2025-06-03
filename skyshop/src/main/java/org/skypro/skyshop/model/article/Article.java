@@ -24,6 +24,16 @@ public class Article implements Searchable {
         return id;
     }
 
+    @Override
+    public String getType() {
+        return "article";
+    }
+
+    @Override
+    public String getName() {
+        return title;
+    }
+
     // Геттеры
     public String getTitle() {
         return title;
