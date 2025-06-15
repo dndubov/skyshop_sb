@@ -19,7 +19,5 @@ public class SimpleProduct extends Product {
     }
 
     @Override
-    public String getType() {
-        return "product";
-    }
+    public String getType() {return "product";}
 }
